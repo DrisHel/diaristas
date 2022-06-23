@@ -1,5 +1,5 @@
 --Gerenciador de faxina para diarista.
-
+-- Implemente no PostgreSQL o B.D projetado no Modelo Relacional (construa um script.sql)
 DROP DATABASE IF EXISTS gerenciador;
 
 CREATE DATABASE gerenciador;
@@ -87,4 +87,33 @@ CREATE TABLE faxina(
     residencia_id integer not null REFERENCES residencia (id)
 );
 
-select *from faxina;
+INSERT INTO faxina(data, preco_inicial,preco_final,realizada,justificativa_valor,feedback,diarista_id,residencia_id) VALUES('2022-06-23',100,150,'true','Acrescido R$50,00 devido quantidade de espelhos e vidros','Limpeza impecável',2,1);
+INSERT INTO faxina(data, preco_inicial,preco_final,realizada,justificativa_valor,feedback,diarista_id,residencia_id) VALUES('2022-06-24',150,180,'true','Acrescido R$30,00 por ter limpado a casinha do pet','Atenciosa e responsável',9,11);
+INSERT INTO faxina(data, preco_inicial,preco_final,realizada,justificativa_valor,feedback,diarista_id,residencia_id) VALUES('2022-06-27',200,350.80,'true','Acrescido R$150,80 devido ter chego antes do horário combinado','Diarista cupriu com o solicitado e se dispos ir antes do horário previamente combinado, devido um imprevisto que ocorreu comigo.',3,5);
+INSERT INTO faxina(data, preco_inicial,preco_final,realizada,justificativa_valor,feedback,diarista_id,residencia_id) VALUES('2022-06-28',150,100.50,'true','Descontado R$49,50 devido ter quebrado um espelho da sala','Limpeza bem feita, porém precisa ter um pouco mais de cuidado com espelhos',6,14);
+INSERT INTO faxina(data, preco_inicial,preco_final,realizada,justificativa_valor,feedback,diarista_id,residencia_id) VALUES('2022-06-28',350,500,'true','Acrescido R$150,00 pois limpou a garagem que não foi incluida inicialmente no pedido','Limpeza impecável, super indico',7,2);
+INSERT INTO faxina(data, preco_inicial,preco_final,realizada,justificativa_valor,feedback,diarista_id,residencia_id) VALUES('2022-06-30',100,100,'true','','',4,16);
+INSERT INTO faxina(data, preco_inicial,preco_final,realizada,justificativa_valor,feedback,diarista_id,residencia_id) VALUES('2022-06-30',400,430.60,'true','Acrescido R$30,60 devido finalizar antes do previsto','Limpeza impecável, extremamente organizada e rápida.',1,13);
+INSERT INTO faxina(data, preco_inicial,preco_final,realizada,justificativa_valor,feedback,diarista_id,residencia_id) VALUES('2022-06-27',100,0,'false','Não compareceu, atestado!','',5,12);
+
+select * from faxina;
+
+--Crie um STORE PROCEDURE que permita agendar quinzenalmente ou mensalmente faxinas em uma determinada residência:
+--A diarista e a residência devem ser considerados parâmetros de entrada
+--É possível utilizar uma data limite (ex: até 31/12 do ano atual)
+--É possível utilizar uma quantidade máxima de agendamentos (ex: marcar 30 faxinas mensalmente)
+
+--CREATE FUNCTION agendamentos(text, text) RETURNS char AS
+--$$
+--DECLARE
+ --resultado text;
+--BEGIN
+ --resultado := $1 || $2;
+ --return resultado;
+--END;
+--$$ LANGUAGE 'plpgsql';
+
+
+--Crie um STORE PROCEDURE que calcule a porcentagem de presenças que uma diarista obteve em suas faxinas ao longo do ano:
+--Ex: 75% de presença
+--Crie uma TRIGGER que exclua a diarista caso suas presenças fiquem menores que 75% (quando a diarista já tem no mínimo 5 faxinas cadastradas)
